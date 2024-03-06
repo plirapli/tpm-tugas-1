@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:tpm_tugas_1_teori/home.dart';
+import 'package:si_bagus/home.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -19,13 +18,6 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        // appBar: AppBar(
-        //   title: const Text(
-        //     "Login Page",
-        //     style: TextStyle(color: Colors.white),
-        //   ),
-        //   backgroundColor: Colors.black,
-        // ),
         body: Padding(
           padding: const EdgeInsets.symmetric(
             vertical: 24,
@@ -188,7 +180,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _registerButton(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(

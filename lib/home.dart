@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tpm_tugas_1_teori/login.dart';
+import 'package:si_bagus/login.dart';
+import 'package:si_bagus/searchbar.dart';
 
 class HomePage extends StatelessWidget {
   final String username;
@@ -15,13 +16,8 @@ class HomePage extends StatelessWidget {
             vertical: 24,
             horizontal: 24,
           ),
-          child: Column(children: [
-            _heading(context),
-            _mainmenu(),
-            // _passwordField(),
-            // _loginButton(context),
-            // _registerButton(context)
-          ]),
+          child: Column(
+              children: [_heading(context), const SearchBarApp(), _mainmenu()]),
         ),
       ),
     );
@@ -49,9 +45,9 @@ class HomePage extends StatelessWidget {
             ),
             IconButton.filled(
               style: IconButton.styleFrom(
-                  minimumSize: Size(48, 48),
+                  minimumSize: const Size(48, 48),
                   foregroundColor: Colors.black,
-                  backgroundColor: Color.fromARGB(66, 124, 124, 124),
+                  backgroundColor: const Color.fromARGB(66, 124, 124, 124),
                   // minimumSize: Size(48, 48),
                   // maximumSize: Size(48, 48),
                   shape: RoundedRectangleBorder(
@@ -70,36 +66,36 @@ class HomePage extends StatelessWidget {
 
   Widget _mainmenu() {
     return Container(
-        alignment: Alignment.centerLeft,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Hello, Rafli  👋🏻",
-                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  "Lorem ipsum dolor sit amet.",
-                  // style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            IconButton.filled(
-              style: IconButton.styleFrom(
-                  minimumSize: Size(48, 48),
-                  foregroundColor: Colors.black,
-                  backgroundColor: Color.fromARGB(66, 124, 124, 124),
-                  // minimumSize: Size(48, 48),
-                  // maximumSize: Size(48, 48),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(6))),
-              onPressed: () {},
-              icon: const Icon(Icons.logout),
-            )
-          ],
+        alignment: Alignment.center,
+        margin: EdgeInsets.only(top: 4),
+        child: Column(
+          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [_mainmenuitem(), _mainmenuitem(), _mainmenuitem()],
         ));
+  }
+
+  Widget _mainmenuitem() {
+    return Container(
+      margin: EdgeInsets.only(top: 12),
+      child: InkWell(
+        onTap: () {},
+        child: Container(
+            // margin: EdgeInsets.only(top: 12),
+            padding: EdgeInsets.all(18),
+            decoration: new BoxDecoration(
+              borderRadius: new BorderRadius.circular(4.0),
+              color: Color.fromARGB(16, 0, 0, 0),
+            ),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Daftar Kelompok",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  Icon(Icons.group)
+                ])),
+      ),
+    );
   }
 }
