@@ -164,9 +164,10 @@ class _LoginPageState extends State<LoginPage> {
               text = "Login Success";
               isError = false;
             });
-            Navigator.push(
+            Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => const HomePage()),
+              MaterialPageRoute(
+                  builder: (context) => HomePage(username: username)),
             );
           } else {
             setState(() {

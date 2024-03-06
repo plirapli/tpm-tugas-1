@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:tpm_tugas_1_teori/login.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  final String username;
 
+  const HomePage({super.key, required this.username});
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -12,7 +16,7 @@ class HomePage extends StatelessWidget {
             horizontal: 24,
           ),
           child: Column(children: [
-            _heading(),
+            _heading(context),
             _mainmenu(),
             // _passwordField(),
             // _loginButton(context),
@@ -23,20 +27,21 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _heading() {
+  Widget _heading(BuildContext context) {
     return Container(
         alignment: Alignment.centerLeft,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Column(
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Hello, Rafli  👋🏻",
-                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                  "Hello, $username  👋🏻",
+                  style: const TextStyle(
+                      fontSize: 28, fontWeight: FontWeight.bold),
                 ),
-                Text(
+                const Text(
                   "Lorem ipsum dolor sit amet.",
                   // style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                 ),
@@ -51,7 +56,12 @@ class HomePage extends StatelessWidget {
                   // maximumSize: Size(48, 48),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(6))),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                );
+              },
               icon: const Icon(Icons.logout),
             )
           ],
