@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:si_bagus/login.dart';
 import 'package:si_bagus/pages/group.dart';
+import 'package:si_bagus/pages/oddeven.dart';
+import 'package:si_bagus/pages/sumsub.dart';
 import 'package:si_bagus/searchbar.dart';
 import 'package:si_bagus/util/mainmenuitem.dart';
 
@@ -79,19 +81,19 @@ class HomePage extends StatelessWidget {
       MenuItem(
           title: "Odd or Even",
           icon: Icons.pin,
-          page: const GroupMembers(),
-          color: Color.fromARGB(255, 151, 238, 255)),
+          page: const OddEvenPage(),
+          color: const Color.fromARGB(255, 151, 238, 255)),
       MenuItem(
           title: "Sum & Sub",
           icon: Icons.calculate,
-          page: const GroupMembers(),
-          color: Color.fromARGB(255, 255, 247, 140))
+          page: const SumSubPage(),
+          color: const Color.fromARGB(255, 255, 247, 140))
     ];
 
     return Expanded(
       child: Container(
           alignment: Alignment.center,
-          margin: EdgeInsets.only(top: 4),
+          margin: const EdgeInsets.only(top: 4),
           child: ListView(
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -106,7 +108,7 @@ class HomePage extends StatelessWidget {
   Widget _mainmenuitem(BuildContext context, String? title, IconData? icon,
       Widget? page, Color? color) {
     return Container(
-      margin: EdgeInsets.only(top: 12),
+      margin: const EdgeInsets.only(top: 12),
       child: InkWell(
         onTap: () {
           Navigator.push(
@@ -116,9 +118,9 @@ class HomePage extends StatelessWidget {
         },
         child: Container(
             // margin: EdgeInsets.only(top: 12),
-            padding: EdgeInsets.all(18),
-            decoration: new BoxDecoration(
-              borderRadius: new BorderRadius.circular(4.0),
+            padding: const EdgeInsets.all(18),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(4.0),
               color: color!,
             ),
             child: Row(
@@ -126,7 +128,7 @@ class HomePage extends StatelessWidget {
                 children: [
                   Text(
                     title!,
-                    style: TextStyle(fontSize: 18),
+                    style: const TextStyle(fontSize: 18),
                   ),
                   Icon(icon!)
                 ])),
