@@ -55,7 +55,8 @@ class _OddEvenPageState extends State<OddEvenPage> {
     return Container(
         margin: const EdgeInsets.only(top: 72),
         child: Column(
-          children: [_inputField(), _calcButton(context)],
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [_inputField(), _calcButton(context), _result()],
         ));
   }
 
@@ -90,9 +91,28 @@ class _OddEvenPageState extends State<OddEvenPage> {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(4))),
         onPressed: () {},
         child: const Text(
-          'Calculate',
+          'Check',
           style: TextStyle(color: Color.fromARGB(255, 23, 34, 47)),
         ),
+      ),
+    );
+  }
+
+  Widget _result() {
+    return Container(
+      margin: EdgeInsets.only(top: 32),
+      child: const Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Result",
+            style: TextStyle(fontSize: 18, height: 0.75),
+          ),
+          Text(
+            "ODD",
+            style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
+          ),
+        ],
       ),
     );
   }
