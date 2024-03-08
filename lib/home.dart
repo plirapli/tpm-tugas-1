@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:si_bagus/login.dart';
+import 'package:si_bagus/pages/group.dart';
 import 'package:si_bagus/searchbar.dart';
+import 'package:si_bagus/util/mainmenuitem.dart';
 
 class HomePage extends StatelessWidget {
   final String username;
@@ -16,8 +18,11 @@ class HomePage extends StatelessWidget {
             vertical: 24,
             horizontal: 24,
           ),
-          child: Column(
-              children: [_heading(context), const SearchBarApp(), _mainmenu()]),
+          child: Column(children: [
+            _heading(context),
+            const SearchBarApp(),
+            _mainmenu(context)
+          ]),
         ),
       ),
     );
@@ -64,36 +69,66 @@ class HomePage extends StatelessWidget {
         ));
   }
 
-  Widget _mainmenu() {
-    return Container(
-        alignment: Alignment.center,
-        margin: EdgeInsets.only(top: 4),
-        child: Column(
-          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [_mainmenuitem(), _mainmenuitem(), _mainmenuitem()],
-        ));
+  Widget _mainmenu(BuildContext context) {
+    List<MenuItem> menuItems = [
+      MenuItem(
+          title: "Group Members",
+          icon: Icons.group,
+          page: const GroupMembers(),
+          color: const Color.fromARGB(255, 128, 255, 210)),
+      MenuItem(
+          title: "Odd or Even",
+          icon: Icons.pin,
+          page: const GroupMembers(),
+          color: Color.fromARGB(255, 151, 238, 255)),
+      MenuItem(
+          title: "Sum & Sub",
+          icon: Icons.calculate,
+          page: const GroupMembers(),
+          color: Color.fromARGB(255, 255, 247, 140))
+    ];
+
+    return Expanded(
+      child: Container(
+          alignment: Alignment.center,
+          margin: EdgeInsets.only(top: 4),
+          child: ListView(
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              for (final item in menuItems)
+                _mainmenuitem(
+                    context, item.title, item.icon, item.page, item.color)
+            ],
+          )),
+    );
   }
 
-  Widget _mainmenuitem() {
+  Widget _mainmenuitem(BuildContext context, String? title, IconData? icon,
+      Widget? page, Color? color) {
     return Container(
       margin: EdgeInsets.only(top: 12),
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => page!),
+          );
+        },
         child: Container(
             // margin: EdgeInsets.only(top: 12),
             padding: EdgeInsets.all(18),
             decoration: new BoxDecoration(
               borderRadius: new BorderRadius.circular(4.0),
-              color: Color.fromARGB(16, 0, 0, 0),
+              color: color!,
             ),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Daftar Kelompok",
+                    title!,
                     style: TextStyle(fontSize: 18),
                   ),
-                  Icon(Icons.group)
+                  Icon(icon!)
                 ])),
       ),
     );

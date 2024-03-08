@@ -13,7 +13,7 @@ class _SearchBarAppState extends State<SearchBarApp> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.02),
+        margin: EdgeInsets.only(top: 12),
         // padding: const EdgeInsets.all(8.0),
         child: TextFormField(
             enabled: true,
