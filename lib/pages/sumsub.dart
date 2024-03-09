@@ -244,7 +244,14 @@ class _SumSubPageState extends State<SumSubPage> {
                 Theme.of(context).colorScheme.onPrimary, // foreground
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
-        onPressed: () {},
+        onPressed: () {
+          setState(() {
+            firstNum = "";
+            secondNum = "";
+            operand = "";
+            num.text = "";
+          });
+        },
         child: const Text(
           "AC",
           style: TextStyle(
