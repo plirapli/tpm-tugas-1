@@ -9,6 +9,9 @@ class OddEvenPage extends StatefulWidget {
 }
 
 class _OddEvenPageState extends State<OddEvenPage> {
+  String result = "-";
+  String number = "";
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -61,7 +64,10 @@ class _OddEvenPageState extends State<OddEvenPage> {
   }
 
   Widget _inputField() {
-    return const TextField(
+    return TextField(
+      onChanged: (value) {
+        number = value;
+      },
       textAlign: TextAlign.center,
       style: TextStyle(fontSize: 32),
       decoration: InputDecoration(
@@ -89,7 +95,16 @@ class _OddEvenPageState extends State<OddEvenPage> {
                 Theme.of(context).colorScheme.onPrimary, // foreground
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(4))),
-        onPressed: () {},
+        onPressed: () {
+          double? inputNumber = double.tryParse(number);
+          setState(() {
+            result = (inputNumber == null || inputNumber.isNaN)
+                ? "😵"
+                : (inputNumber % 2 == 0)
+                    ? "EVEN"
+                    : "ODD";
+          });
+        },
         child: const Text(
           'Check',
           style: TextStyle(color: Color.fromARGB(255, 23, 34, 47)),
@@ -101,15 +116,15 @@ class _OddEvenPageState extends State<OddEvenPage> {
   Widget _result() {
     return Container(
       margin: EdgeInsets.only(top: 32),
-      child: const Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             "Result",
             style: TextStyle(fontSize: 18, height: 0.75),
           ),
           Text(
-            "ODD",
+            result,
             style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
           ),
         ],
