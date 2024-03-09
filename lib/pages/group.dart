@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-// import 'package:si_bagus/util/groupitem.dart';
+import 'package:si_bagus/util/groupitem.dart';
 
 class GroupMembers extends StatelessWidget {
   const GroupMembers({super.key});
@@ -48,6 +47,17 @@ class GroupMembers extends StatelessWidget {
   }
 
   Widget _groupContainer(BuildContext context) {
+    List<GroupItem> members = [
+      GroupItem(
+          title: "Muhammad Rafli",
+          subtitle: "123210078",
+          img: "assets/images/rapli.png"),
+      GroupItem(
+          title: "Michel Pierce Tahya",
+          subtitle: "123210103",
+          img: "assets/images/micel.png")
+    ];
+
     return Expanded(
       child: Container(
           alignment: Alignment.center,
@@ -55,28 +65,27 @@ class GroupMembers extends StatelessWidget {
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: [
-              _groupMenuItem(context),
-              SizedBox(width: 12),
-              _groupMenuItem(context)
+              _groupMenuItem(context, members[0]),
+              const SizedBox(width: 20),
+              _groupMenuItem(context, members[1])
             ],
           )),
     );
   }
 
-  Widget _groupMenuItem(BuildContext context) {
+  Widget _groupMenuItem(BuildContext context, GroupItem member) {
     return Container(
       margin: const EdgeInsets.only(top: 12),
       width: MediaQuery.of(context).size.width * 0.8,
       child: Column(children: [
         Container(
-            height: 320,
+            height: 300,
             // width: MediaQuery.of(context).size.width * 0.8,
             margin: const EdgeInsets.only(bottom: 14),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(14),
-                image: const DecorationImage(
-                    image: AssetImage('assets/images/rapli.jpg'),
-                    fit: BoxFit.cover))),
+                image: DecorationImage(
+                    image: AssetImage(member.img!), fit: BoxFit.cover))),
         Container(
           alignment: Alignment.centerLeft,
           // decoration: BoxDecoration(color: Colors.amber),
@@ -86,29 +95,34 @@ class GroupMembers extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    "Muhammad Rafli",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  Text(
+                    member.title!,
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                  Container(
-                    child: const Text(
-                      "123210078",
-                      style: TextStyle(
-                          fontSize: 18, color: Color.fromARGB(150, 0, 0, 0)),
-                    ),
+                  Text(
+                    member.subtitle!,
+                    style: const TextStyle(
+                        fontSize: 14, color: Color.fromARGB(150, 0, 0, 0)),
                   ),
                 ],
               ),
               IconButton.filled(
                 style: IconButton.styleFrom(
-                    minimumSize: const Size(44, 44),
+                    minimumSize: const Size(40, 40),
                     foregroundColor: const Color.fromARGB(255, 23, 47, 39),
                     backgroundColor: const Color.fromARGB(255, 128, 255, 210),
                     // minimumSize: Size(48, 48),
                     // maximumSize: Size(48, 48),
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6))),
-                onPressed: () {},
+                        borderRadius: BorderRadius.circular(8))),
+                onPressed: () {
+                  // final Uri launchUri = Uri(
+                  //   scheme: 'tel',
+                  //   path: "085157724721",
+                  // );
+                  // launchUrl(launchUri);
+                },
                 icon: const Icon(Icons.phone),
               )
             ],

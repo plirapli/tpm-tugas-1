@@ -69,7 +69,7 @@ class _OddEvenPageState extends State<OddEvenPage> {
         number = value;
       },
       textAlign: TextAlign.center,
-      style: TextStyle(fontSize: 32),
+      style: const TextStyle(fontSize: 32),
       inputFormatters: <TextInputFormatter>[
         FilteringTextInputFormatter.allow(RegExp(r'^-?[0-9]*(\.[0-9]*)?')),
         // Formatter yang berfungsi untuk menetapkan inputan dari userr
@@ -120,7 +120,7 @@ class _OddEvenPageState extends State<OddEvenPage> {
 
   Widget _result() {
     return Container(
-      margin: EdgeInsets.only(top: 32),
+      margin: const EdgeInsets.only(top: 32),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -130,7 +130,7 @@ class _OddEvenPageState extends State<OddEvenPage> {
           ),
           Text(
             result,
-            style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
           ),
         ],
       ),
