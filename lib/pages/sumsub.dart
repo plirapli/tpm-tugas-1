@@ -11,9 +11,8 @@ class SumSubPage extends StatefulWidget {
 class _SumSubPageState extends State<SumSubPage> {
   TextEditingController num = TextEditingController();
   String firstNum = "", secondNum = "";
-  // String first = "", second = "";
   String operand = "";
-  String result = "-";
+  String result = "0";
 
   @override
   Widget build(BuildContext context) {
@@ -241,6 +240,7 @@ class _SumSubPageState extends State<SumSubPage> {
           secondNum = "";
           operand = "";
           num.text = "";
+          result = "0";
         });
       },
       child: const Text(
@@ -259,18 +259,37 @@ class _SumSubPageState extends State<SumSubPage> {
       child: TextButton(
         style: TextButton.styleFrom(
             padding: const EdgeInsets.symmetric(vertical: 16),
-            backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+            backgroundColor: (secondNum != "")
+                ? const Color.fromARGB(255, 0, 0, 0)
+                : const Color.fromARGB(24, 0, 0, 0),
             foregroundColor:
                 Theme.of(context).colorScheme.onPrimary, // foreground
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(6))),
-        onPressed: () {},
-        child: const Text(
+        onPressed: (secondNum != "")
+            ? () {
+                double first = double.parse(firstNum);
+                double second = double.parse(secondNum);
+
+                setState(() {
+                  result = (operand == "+")
+                      ? (first + second).toString()
+                      : (first - second).toString();
+                  firstNum = "";
+                  secondNum = "";
+                  operand = "";
+                  num.text = "";
+                });
+              }
+            : null,
+        child: Text(
           '=',
           style: TextStyle(
               fontSize: 32,
               fontWeight: FontWeight.bold,
-              color: Color.fromARGB(255, 251, 255, 219)),
+              color: (secondNum != "")
+                  ? const Color.fromARGB(255, 251, 255, 219)
+                  : const Color.fromARGB(64, 0, 0, 0)),
         ),
       ),
     );
