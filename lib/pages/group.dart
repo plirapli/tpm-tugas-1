@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:si_bagus/util/groupitem.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class GroupMembers extends StatelessWidget {
+class GroupMembers extends StatefulWidget {
   const GroupMembers({super.key});
 
+  @override
+  State<GroupMembers> createState() => _GroupMembersState();
+}
+
+class _GroupMembersState extends State<GroupMembers> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -51,11 +57,13 @@ class GroupMembers extends StatelessWidget {
       GroupItem(
           title: "Muhammad Rafli",
           subtitle: "123210078",
-          img: "assets/images/rapli.png"),
+          img: "assets/images/rapli.png",
+          url: "https://github.com/plirapli"),
       GroupItem(
           title: "Michel Pierce Tahya",
           subtitle: "123210103",
-          img: "assets/images/micel.png")
+          img: "assets/images/micel.png",
+          url: "https://github.com/MichelPT")
     ];
 
     return Expanded(
@@ -117,18 +125,21 @@ class GroupMembers extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8))),
                 onPressed: () {
-                  // final Uri launchUri = Uri(
-                  //   scheme: 'tel',
-                  //   path: "085157724721",
-                  // );
-                  // launchUrl(launchUri);
+                  _launchURL(member.url);
                 },
-                icon: const Icon(Icons.phone),
+                icon: const Icon(Icons.code),
               )
             ],
           ),
         )
       ]),
     );
+  }
+
+  _launchURL(urlPath) async {
+    final Uri url = Uri.parse(urlPath);
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $url');
+    }
   }
 }
