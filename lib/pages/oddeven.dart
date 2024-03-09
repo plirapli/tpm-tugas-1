@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/services.dart';
 
 class OddEvenPage extends StatefulWidget {
   const OddEvenPage({super.key});
@@ -70,7 +70,12 @@ class _OddEvenPageState extends State<OddEvenPage> {
       },
       textAlign: TextAlign.center,
       style: TextStyle(fontSize: 32),
-      decoration: InputDecoration(
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter.allow(RegExp(r'^-?[0-9]*(\.[0-9]*)?')),
+        // Formatter yang berfungsi untuk menetapkan inputan dari userr
+        // User dapat menginputkan angka-angka, dan juga opsional satu titik (angka desimal)
+      ],
+      decoration: const InputDecoration(
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.black),
         ),

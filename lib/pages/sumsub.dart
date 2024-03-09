@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 
 class SumSubPage extends StatefulWidget {
   const SumSubPage({super.key});
@@ -8,6 +10,12 @@ class SumSubPage extends StatefulWidget {
 }
 
 class _SumSubPageState extends State<SumSubPage> {
+  TextEditingController num = TextEditingController();
+  String firstNum = "", secondNum = "";
+  // String first = "", second = "";
+  String operand = "";
+  String result = "-";
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -22,7 +30,8 @@ class _SumSubPageState extends State<SumSubPage> {
             vertical: 24,
             horizontal: 24,
           ),
-          child: Column(children: [_heading(), _main(context)]),
+          child: Column(
+              children: [_heading(), _calcLayout(context), _main(context)]),
         ),
       ),
     );
@@ -50,25 +59,65 @@ class _SumSubPageState extends State<SumSubPage> {
         ));
   }
 
-  Widget _main(BuildContext context) {
+  Widget _calcLayout(BuildContext context) {
     return Container(
-        margin: const EdgeInsets.only(top: 72),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+        width: MediaQuery.of(context).size.width,
+        alignment: Alignment.centerRight,
+        margin: const EdgeInsets.only(top: 64),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            _inputField(),
-            _operationButtonLayout(context),
-            _calcButton(context),
-            _result()
+            Text(
+              firstNum,
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            ),
+            Text(
+              operand,
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            ),
+            Text(
+              secondNum,
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            ),
           ],
         ));
   }
 
+  Widget _main(BuildContext context) {
+    return Container(
+        // margin: const EdgeInsets.only(top: 0),
+        child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        _inputField(),
+        _operationButtonLayout(context),
+        _resetResultLayout(context),
+        _result()
+      ],
+    ));
+  }
+
   Widget _inputField() {
-    return const TextField(
+    return TextField(
       textAlign: TextAlign.center,
       style: TextStyle(fontSize: 32),
-      decoration: InputDecoration(
+      keyboardType: TextInputType.numberWithOptions(decimal: true),
+      controller: num,
+      onChanged: (value) {
+        setState(() {
+          if (operand == "") {
+            firstNum = value;
+          } else {
+            secondNum = value;
+          }
+        });
+      },
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter.allow(RegExp(r'^-?[0-9]*(\.[0-9]*)?')),
+        // Formatter yang berfungsi untuk menetapkan inputan dari userr
+        // User dapat menginputkan angka-angka, dan juga opsional satu titik (angka desimal)
+      ],
+      decoration: const InputDecoration(
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.black),
         ),
@@ -89,9 +138,24 @@ class _SumSubPageState extends State<SumSubPage> {
         children: [
           _plusButton(context),
           const SizedBox(
-            width: 8,
+            width: 12,
           ),
           _minButton(context)
+        ],
+      ),
+    );
+  }
+
+  Widget _resetResultLayout(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(top: 12),
+      child: Row(
+        children: [
+          _resetButton(context),
+          const SizedBox(
+            width: 12,
+          ),
+          _calcButton(context)
         ],
       ),
     );
@@ -103,18 +167,30 @@ class _SumSubPageState extends State<SumSubPage> {
         child: TextButton(
           style: TextButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 16),
-              backgroundColor: const Color.fromARGB(255, 255, 244, 94),
+              backgroundColor: (operand == "" && firstNum != "")
+                  ? Color.fromARGB(255, 255, 244, 94)
+                  : Color.fromARGB(24, 0, 0, 0),
               foregroundColor:
                   Theme.of(context).colorScheme.onPrimary, // foreground
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12))),
-          onPressed: () {},
-          child: const Text(
+          onPressed: operand == ""
+              ? () {
+                  // print("tes");
+                  setState(() {
+                    operand = "+";
+                    num.text = "";
+                  });
+                }
+              : null,
+          child: Text(
             '+',
             style: TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.bold,
-                color: Color.fromARGB(255, 23, 34, 47)),
+                color: (operand == "" && firstNum != "")
+                    ? Color.fromARGB(255, 23, 34, 47)
+                    : Color.fromARGB(64, 0, 0, 0)),
           ),
         ),
       ),
@@ -127,30 +203,65 @@ class _SumSubPageState extends State<SumSubPage> {
         child: TextButton(
           style: TextButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 16),
-              backgroundColor: const Color.fromARGB(255, 255, 244, 94),
+              backgroundColor: (operand == "" && firstNum != "")
+                  ? Color.fromARGB(255, 255, 244, 94)
+                  : Color.fromARGB(24, 0, 0, 0),
               foregroundColor:
                   Theme.of(context).colorScheme.onPrimary, // foreground
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12))),
-          onPressed: () {},
-          child: const Text(
+          onPressed: operand == ""
+              ? () {
+                  // print("tes");
+                  setState(() {
+                    operand = "-";
+                    num.text = "";
+                  });
+                }
+              : null,
+          child: Text(
             '-',
             style: TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.bold,
-                color: Color.fromARGB(255, 23, 34, 47)),
+                color: (operand == "" && firstNum != "")
+                    ? Color.fromARGB(255, 23, 34, 47)
+                    : Color.fromARGB(64, 0, 0, 0)),
           ),
         ),
       ),
     );
   }
 
-  Widget _calcButton(BuildContext context) {
+  Widget _resetButton(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 8),
-      width: MediaQuery.of(context).size.width,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
+      // width: 12,
+      child: TextButton(
+        style: TextButton.styleFrom(
+            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+            backgroundColor: Color.fromARGB(255, 255, 195, 195),
+            foregroundColor:
+                Theme.of(context).colorScheme.onPrimary, // foreground
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+        onPressed: () {},
+        child: const Text(
+          "AC",
+          style: TextStyle(
+              fontSize: 32,
+              fontWeight: FontWeight.bold,
+              color: Color.fromARGB(255, 169, 5, 5)),
+        ),
+      ),
+    );
+  }
+
+  Widget _calcButton(BuildContext context) {
+    return Expanded(
+      // width: MediaQuery.of(context).size.width,
+      child: TextButton(
+        style: TextButton.styleFrom(
+            padding: const EdgeInsets.symmetric(vertical: 16),
             backgroundColor: Color.fromARGB(255, 0, 0, 0),
             foregroundColor:
                 Theme.of(context).colorScheme.onPrimary, // foreground
@@ -158,8 +269,11 @@ class _SumSubPageState extends State<SumSubPage> {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(6))),
         onPressed: () {},
         child: const Text(
-          'Calculate',
-          style: TextStyle(color: Color.fromARGB(255, 251, 255, 219)),
+          '=',
+          style: TextStyle(
+              fontSize: 32,
+              fontWeight: FontWeight.bold,
+              color: Color.fromARGB(255, 251, 255, 219)),
         ),
       ),
     );
@@ -168,16 +282,16 @@ class _SumSubPageState extends State<SumSubPage> {
   Widget _result() {
     return Container(
       margin: const EdgeInsets.only(top: 36),
-      child: const Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             "Result",
             style: TextStyle(fontSize: 18, height: 0.75),
           ),
           Text(
-            "123123123123123123123812381838.12",
-            style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
+            result,
+            style: const TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
           ),
         ],
       ),
