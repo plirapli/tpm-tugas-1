@@ -33,20 +33,5 @@ class _SearchBarAppState extends State<SearchBarApp> {
                 focusedBorder: const OutlineInputBorder(
                     borderSide: BorderSide(
                         width: 1.75, color: Color.fromARGB(80, 0, 0, 0))))));
-    //   ), suggestionsBuilder:
-    //           (BuildContext context, SearchController controller) {
-    //     return List<ListTile>.generate(5, (int index) {
-    //       final String item = 'item $index';
-    //       return ListTile(
-    //         title: Text(item),
-    //         onTap: () {
-    //           setState(() {
-    //             controller.closeView(item);
-    //           });
-    //         },
-    //       );
-    //     });
-    //   }),
-    // );
   }
 }

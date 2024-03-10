@@ -1,4 +1,9 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
 import 'package:si_bagus/pages/home.dart';
 import 'package:si_bagus/pages/register.dart';
 
@@ -12,8 +17,37 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   String username = "";
   String password = "";
-  bool isLoginSuccess = true;
   bool isError = false;
+
+  Future<void> loginUser() async {
+    const url = "http://localhost:3002/v1/users/login";
+    String msg = "";
+
+    final response = await http.post(
+      Uri.parse(url),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(
+          <String, String>{'username': username, 'password': password}),
+    );
+    msg = jsonDecode(response.body)["message"];
+
+    if (!mounted) return;
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(msg), duration: Durations.long2));
+
+    if (response.statusCode == 200) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HomePage(username: username)),
+      );
+    } else {
+      setState(() {
+        isError = true;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -152,31 +186,7 @@ class _LoginPageState extends State<LoginPage> {
                 Theme.of(context).colorScheme.onPrimary, // foreground
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(4))),
-        onPressed: () {
-          String text = "";
-          if (username == "mrafliy" && password == "12345") {
-            setState(() {
-              text = "Login Success";
-              isError = false;
-            });
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => HomePage(username: username)),
-            );
-          } else {
-            setState(() {
-              text = "Login Failed";
-              isError = true;
-            });
-          }
-
-          SnackBar snackBar = SnackBar(
-            content: Text(text),
-          );
-
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        },
+        onPressed: loginUser,
         child: const Text('Login'),
       ),
     );

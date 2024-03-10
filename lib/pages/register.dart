@@ -17,9 +17,6 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _fullNameController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
-  String message = "";
-  bool isLoginSuccess = true;
   bool isError = false;
 
   Future<void> registerUser() async {
@@ -37,12 +34,11 @@ class _RegisterPageState extends State<RegisterPage> {
         'password': _passwordController.text
       }),
     );
-
     msg = jsonDecode(response.body)["message"];
-    print(msg);
 
     if (!mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(msg), duration: Durations.long2));
 
     if (response.statusCode != 201) {
       setState(() {
