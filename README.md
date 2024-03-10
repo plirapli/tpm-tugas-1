@@ -1,16 +1,11 @@
 # tpm_tugas_1_teori
 
-A new Flutter project.
+Tugas TPM 1
 
-## Getting Started
+## How to start
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. Nyalain mysql server, buat db baru dengan table "user"
+2. Isi file .env berdasarkan file .env.example
+3. Jalankan web service (npm run dev)
+4. Jalankan project flutter (flutter run)
+5. 🏃🏻‍♂️‍➡️
