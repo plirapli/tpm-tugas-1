@@ -106,18 +106,18 @@ class _GroupMembersState extends State<GroupMembers> {
                   Text(
                     member.title!,
                     style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold),
+                        fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   Text(
                     member.subtitle!,
                     style: const TextStyle(
-                        fontSize: 14, color: Color.fromARGB(150, 0, 0, 0)),
+                        fontSize: 16, color: Color.fromARGB(150, 0, 0, 0)),
                   ),
                 ],
               ),
               IconButton.filled(
                 style: IconButton.styleFrom(
-                    minimumSize: const Size(40, 40),
+                    minimumSize: const Size(48, 48),
                     foregroundColor: const Color.fromARGB(255, 23, 47, 39),
                     backgroundColor: const Color.fromARGB(255, 128, 255, 210),
                     // minimumSize: Size(48, 48),
