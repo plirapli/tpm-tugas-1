@@ -1,5 +1,9 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:si_bagus/pages/home.dart';
+import 'package:http/http.dart' as http;
+
 import 'package:si_bagus/pages/login.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -10,11 +14,54 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  String fullName = "";
-  String username = "";
-  String password = "";
+  final TextEditingController _fullNameController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  String message = "";
   bool isLoginSuccess = true;
   bool isError = false;
+
+  Future<void> registerUser() async {
+    const url = "http://localhost:3002/v1/users/register";
+    String msg = "";
+
+    final response = await http.post(
+      Uri.parse(url),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'name': _fullNameController.text,
+        'username': _usernameController.text,
+        'password': _passwordController.text
+      }),
+    );
+
+    msg = jsonDecode(response.body)["message"];
+    print(msg);
+
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
+
+    if (response.statusCode != 201) {
+      setState(() {
+        isError = true;
+      });
+    } else {
+      Navigator.pop(context);
+    }
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is removed from the
+    // widget tree.
+    _fullNameController.dispose();
+    _usernameController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,14 +111,14 @@ class _RegisterPageState extends State<RegisterPage> {
       padding: const EdgeInsets.only(top: 12),
       child: TextFormField(
         enabled: true,
+        controller: _fullNameController,
         onChanged: (value) {
-          fullName = value;
           setState(() {
-            if (isError) isError = false;
+            if (isError == true) isError = false;
           });
         },
         decoration: InputDecoration(
-            hintText: 'Full Name',
+            hintText: 'Enter your full name',
             prefixIcon: Icon(
               Icons.assignment_ind_rounded,
               color: (!isError)
@@ -105,14 +152,14 @@ class _RegisterPageState extends State<RegisterPage> {
       padding: const EdgeInsets.only(top: 12),
       child: TextFormField(
         enabled: true,
+        controller: _usernameController,
         onChanged: (value) {
-          username = value;
           setState(() {
-            if (isError) isError = false;
+            if (isError == true) isError = false;
           });
         },
         decoration: InputDecoration(
-            hintText: 'Username',
+            hintText: 'Enter your username',
             prefixIcon: Icon(
               Icons.person,
               color: (!isError)
@@ -146,15 +193,15 @@ class _RegisterPageState extends State<RegisterPage> {
       padding: const EdgeInsets.only(top: 12),
       child: TextFormField(
         enabled: true,
+        controller: _passwordController,
         onChanged: (value) {
-          password = value;
           setState(() {
-            if (isError) isError = false;
+            if (isError == true) isError = false;
           });
         },
         obscureText: true,
         decoration: InputDecoration(
-          hintText: 'Password',
+          hintText: 'Enter your password',
           prefixIcon: Icon(
             Icons.key,
             color: (!isError)
@@ -195,31 +242,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 Theme.of(context).colorScheme.onPrimary, // foreground
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(4))),
-        onPressed: () {
-          String text = "";
-          if (username == "mrafliy" && password == "12345") {
-            setState(() {
-              text = "Login Success";
-              isError = false;
-            });
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => HomePage(username: username)),
-            );
-          } else {
-            setState(() {
-              text = "Login Failed";
-              isError = true;
-            });
-          }
-
-          SnackBar snackBar = SnackBar(
-            content: Text(text),
-          );
-
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        },
+        onPressed: registerUser,
         child: const Text('Register'),
       ),
     );

@@ -20,13 +20,19 @@ app.post("/v1/users/login", async (req, res, next) => {
   try {
     const { username, password } = req.body;
 
+    if (username == "" || password == "") {
+      const error = new Error(`Username or password cannot be empty.`);
+      error.statusCode = 401;
+      throw error;
+    }
+
     // Cek user ada apa engga
     const checkCommand = `SELECT * FROM user WHERE username = ?`;
     const [[user]] = await connection.promise().query(checkCommand, [username]);
 
     if (!user) {
       const error = new Error("Wrong email or password");
-      error.statusCode = 400;
+      error.statusCode = 404;
       throw error;
     }
 
@@ -35,7 +41,7 @@ app.post("/v1/users/login", async (req, res, next) => {
     // Apabila password salah
     if (!checkPassword) {
       const error = new Error("Wrong email or password");
-      error.statusCode = 400;
+      error.statusCode = 404;
       throw error;
     }
 
@@ -56,6 +62,12 @@ app.post("/v1/users/register", async (req, res, next) => {
   try {
     const { name, username, password } = req.body;
 
+    if (name == "" || username == "" || password == "") {
+      const error = new Error(`Cannot be empty.`);
+      error.statusCode = 401;
+      throw error;
+    }
+
     const salt = await bcrypt.genSalt(6);
     const hashedPassword = await bcrypt.hash(password, salt);
     const id = nanoid();
@@ -68,7 +80,7 @@ app.post("/v1/users/register", async (req, res, next) => {
 
     if (checkId) {
       const error = new Error(`Username ${username} already exist!`);
-      error.statusCode = 400;
+      error.statusCode = 401;
       throw error;
     }
 
