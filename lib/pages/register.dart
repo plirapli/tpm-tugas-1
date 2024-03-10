@@ -10,6 +10,7 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  String fullName = "";
   String username = "";
   String password = "";
   bool isLoginSuccess = true;
@@ -26,7 +27,7 @@ class _RegisterPageState extends State<RegisterPage> {
           ),
           child: Column(children: [
             _heading(),
-            _usernameField(),
+            _nameField(),
             _usernameField(),
             _passwordField(),
             _registerButton(context),
@@ -56,6 +57,47 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
           ],
         ));
+  }
+
+  Widget _nameField() {
+    return Container(
+      padding: const EdgeInsets.only(top: 12),
+      child: TextFormField(
+        enabled: true,
+        onChanged: (value) {
+          fullName = value;
+          setState(() {
+            if (isError) isError = false;
+          });
+        },
+        decoration: InputDecoration(
+            hintText: 'Full Name',
+            prefixIcon: Icon(
+              Icons.assignment_ind_rounded,
+              color: (!isError)
+                  ? Colors.black87
+                  : Theme.of(context).colorScheme.error,
+            ),
+            filled: true,
+            fillColor: (isError)
+                ? Theme.of(context).colorScheme.errorContainer
+                : const Color.fromARGB(255, 229, 229, 229),
+            contentPadding: const EdgeInsets.all(12),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: (!isError)
+                        ? Colors.transparent
+                        : Theme.of(context).colorScheme.error)),
+            focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: (!isError)
+                        ? Colors.transparent
+                        : Theme.of(context).colorScheme.error))),
+      ),
+    );
   }
 
   Widget _usernameField() {
