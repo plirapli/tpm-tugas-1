@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:si_bagus/home.dart';
+import 'package:si_bagus/pages/home.dart';
+import 'package:si_bagus/pages/login.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   String username = "";
   String password = "";
   bool isLoginSuccess = true;
@@ -26,9 +27,11 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(children: [
             _heading(),
             _usernameField(),
+            _usernameField(),
             _passwordField(),
-            _loginButton(context),
-            _registerButton(context)
+            _registerButton(context),
+            const Divider(),
+            _loginButton(context)
           ]),
         ),
       ),
@@ -37,13 +40,14 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _heading() {
     return Container(
-        margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.1),
+        margin: EdgeInsets.only(
+            top: MediaQuery.of(context).size.height * 0.1, bottom: 4),
         alignment: Alignment.centerLeft,
         child: const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Login Page",
+              "Register Page",
               style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
             ),
             Text(
@@ -56,7 +60,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _usernameField() {
     return Container(
-      padding: const EdgeInsets.only(top: 16),
+      padding: const EdgeInsets.only(top: 12),
       child: TextFormField(
         enabled: true,
         onChanged: (value) {
@@ -138,7 +142,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _loginButton(BuildContext context) {
+  Widget _registerButton(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(top: 14, bottom: 6),
       width: MediaQuery.of(context).size.width,
@@ -174,22 +178,42 @@ class _LoginPageState extends State<LoginPage> {
 
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
         },
-        child: const Text('Login'),
+        child: const Text('Register'),
       ),
     );
   }
 
-  Widget _registerButton(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.black,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(4),
-                side: const BorderSide(color: Colors.black))),
-        onPressed: () {},
-        child: const Text('Register'),
+  Widget _loginButton(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(top: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "Already have an account?",
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: 6),
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: TextButton(
+                style: TextButton.styleFrom(
+                    foregroundColor: Colors.black,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4),
+                        side: const BorderSide(
+                            color: Color.fromARGB(84, 0, 0, 0), width: 1.5))),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                  );
+                },
+                child: const Text('Login'),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

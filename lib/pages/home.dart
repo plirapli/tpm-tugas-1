@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:si_bagus/login.dart';
+import 'package:si_bagus/pages/login.dart';
 import 'package:si_bagus/pages/group.dart';
 import 'package:si_bagus/pages/oddeven.dart';
 import 'package:si_bagus/pages/sumsub.dart';
