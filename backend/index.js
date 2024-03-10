@@ -1,7 +1,9 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const connection = require("./config/database");
+const connection = require("./config");
+const bcrypt = require("bcrypt");
+const { nanoid } = require("nanoid");
 const app = express();
 const server = require("http").createServer(app);
 const port = process.env.PORT || "3100";
@@ -40,7 +42,6 @@ app.post("/v1/users/login", async (req, res, next) => {
     res.status(200).json({
       status: "Success",
       message: "Login Successful",
-      token,
     });
   } catch (error) {
     res.status(error.statusCode || 500).json({
