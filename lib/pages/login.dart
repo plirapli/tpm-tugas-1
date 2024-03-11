@@ -22,27 +22,36 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> loginUser() async {
     const url = "http://localhost:3002/v1/users/login";
     String msg = "";
-
-    final response = await http.post(
-      Uri.parse(url),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(
-          <String, String>{'username': username, 'password': password}),
-    );
-    msg = jsonDecode(response.body)["message"];
-
-    if (!mounted) return;
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(msg), duration: Durations.long2));
-
-    if (response.statusCode == 200) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => HomePage(username: username)),
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(
+            <String, String>{'username': username, 'password': password}),
       );
-    } else {
+      msg = jsonDecode(response.body)["message"];
+
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(msg), duration: Durations.long2));
+
+      if (response.statusCode == 200) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => HomePage(username: username)),
+        );
+      } else {
+        setState(() {
+          isError = true;
+        });
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Can't connect to server."),
+          duration: Durations.long2));
+
       setState(() {
         isError = true;
       });

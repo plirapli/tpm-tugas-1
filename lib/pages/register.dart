@@ -23,29 +23,39 @@ class _RegisterPageState extends State<RegisterPage> {
     const url = "http://localhost:3002/v1/users/register";
     String msg = "";
 
-    final response = await http.post(
-      Uri.parse(url),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{
-        'name': _fullNameController.text,
-        'username': _usernameController.text,
-        'password': _passwordController.text
-      }),
-    );
-    msg = jsonDecode(response.body)["message"];
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          'name': _fullNameController.text,
+          'username': _usernameController.text,
+          'password': _passwordController.text
+        }),
+      );
+      msg = jsonDecode(response.body)["message"];
 
-    if (!mounted) return;
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(msg), duration: Durations.long2));
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(msg), duration: Durations.long2));
 
-    if (response.statusCode != 201) {
+      if (response.statusCode != 201) {
+        setState(() {
+          isError = true;
+        });
+      } else {
+        Navigator.pop(context);
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Can't connect to server."),
+          duration: Durations.long2));
+
       setState(() {
         isError = true;
       });
-    } else {
-      Navigator.pop(context);
     }
   }
 
