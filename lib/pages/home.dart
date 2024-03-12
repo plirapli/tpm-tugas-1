@@ -50,23 +50,25 @@ class _HomePageState extends State<HomePage> {
               (item) => (item.title!.toLowerCase()).contains(val.toLowerCase()))
           .toList();
     });
-    // print(filteredItems);
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 24,
-            horizontal: 24,
+        body: Expanded(
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 24,
+            ),
+            child: ListView(scrollDirection: Axis.vertical, children: [
+              const SizedBox(height: 20),
+              _heading(context),
+              _searchBar(context),
+              _mainmenu(context),
+              const SizedBox(height: 20)
+            ]),
           ),
-          child: Column(children: [
-            _heading(context),
-            _searchBar(context),
-            _mainmenu(context)
-          ]),
         ),
       ),
     );
@@ -84,7 +86,7 @@ class _HomePageState extends State<HomePage> {
                 Text(
                   "Hello, ${widget.username}  👋🏻",
                   style: const TextStyle(
-                      fontSize: 28, fontWeight: FontWeight.bold),
+                      fontSize: 24, fontWeight: FontWeight.bold),
                 ),
                 const Text(
                   "Ini ceritanya subtext tapi gatau diisi apa",
@@ -133,36 +135,33 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _mainmenu(BuildContext context) {
-    return Expanded(
-      child: Container(
-          alignment: Alignment.center,
-          margin: const EdgeInsets.only(top: 4),
-          child: ListView(
-              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: filteredItems.isEmpty
-                  ? [
-                      Container(
-                          margin: EdgeInsets.only(top: 12),
-                          child: Text.rich(
-                            TextSpan(
-                              style: const TextStyle(fontSize: 16),
-                              children: [
-                                const TextSpan(text: "Can't find "),
-                                TextSpan(
-                                    text: keyword,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold)),
-                                const TextSpan(text: " on menu."),
-                              ],
-                            ),
-                          ))
-                    ]
-                  : [
-                      for (final item in filteredItems)
-                        _mainmenuitem(context, item.title, item.icon, item.page,
-                            item.color)
-                    ])),
-    );
+    return Container(
+        alignment: Alignment.center,
+        margin: const EdgeInsets.only(top: 4),
+        child: Column(
+            children: filteredItems.isEmpty
+                ? [
+                    Container(
+                        margin: EdgeInsets.only(top: 12),
+                        child: Text.rich(
+                          TextSpan(
+                            style: const TextStyle(fontSize: 16),
+                            children: [
+                              const TextSpan(text: "Can't find "),
+                              TextSpan(
+                                  text: keyword,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold)),
+                              const TextSpan(text: " on menu."),
+                            ],
+                          ),
+                        ))
+                  ]
+                : [
+                    for (final item in filteredItems)
+                      _mainmenuitem(
+                          context, item.title, item.icon, item.page, item.color)
+                  ]));
   }
 
   Widget _mainmenuitem(BuildContext context, String? title, IconData? icon,

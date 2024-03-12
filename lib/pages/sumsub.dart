@@ -22,14 +22,20 @@ class _SumSubPageState extends State<SumSubPage> {
           title: const Text("Sum and Sub"),
           backgroundColor: const Color.fromARGB(255, 255, 244, 94),
         ),
-        body: Container(
-          color: const Color.fromARGB(255, 251, 255, 219),
-          padding: const EdgeInsets.symmetric(
-            vertical: 24,
-            horizontal: 24,
+        body: Expanded(
+          child: Container(
+            color: const Color.fromARGB(255, 251, 255, 219),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 24,
+            ),
+            child: ListView(scrollDirection: Axis.vertical, children: [
+              const SizedBox(height: 20),
+              _heading(),
+              _calcLayout(context),
+              _main(context),
+              const SizedBox(height: 20)
+            ]),
           ),
-          child: Column(
-              children: [_heading(), _calcLayout(context), _main(context)]),
         ),
       ),
     );
@@ -44,7 +50,7 @@ class _SumSubPageState extends State<SumSubPage> {
             Text(
               "Sum and Sub  🧮",
               style: TextStyle(
-                  fontSize: 28,
+                  fontSize: 24,
                   fontWeight: FontWeight.bold,
                   color: Color.fromARGB(255, 47, 46, 23)),
             ),

@@ -20,10 +20,6 @@ class _GroupMembersState extends State<GroupMembers> {
         ),
         body: Container(
           color: const Color.fromARGB(255, 219, 255, 242),
-          padding: const EdgeInsets.symmetric(
-            vertical: 24,
-            horizontal: 24,
-          ),
           child: Column(children: [_heading(), _groupContainer(context)]),
         ),
       ),
@@ -32,6 +28,7 @@ class _GroupMembersState extends State<GroupMembers> {
 
   Widget _heading() {
     return Container(
+        padding: const EdgeInsets.fromLTRB(24, 20, 24, 0),
         alignment: Alignment.centerLeft,
         child: const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,7 +36,7 @@ class _GroupMembersState extends State<GroupMembers> {
             Text(
               "Our Teams 🧑🏻‍💻",
               style: TextStyle(
-                  fontSize: 28,
+                  fontSize: 24,
                   fontWeight: FontWeight.bold,
                   color: Color.fromARGB(255, 23, 47, 39)),
             ),
@@ -53,6 +50,7 @@ class _GroupMembersState extends State<GroupMembers> {
   }
 
   Widget _groupContainer(BuildContext context) {
+    double parentHeight = MediaQuery.of(context).size.height;
     List<GroupItem> members = [
       GroupItem(
           title: "Muhammad Rafli",
@@ -69,26 +67,32 @@ class _GroupMembersState extends State<GroupMembers> {
     return Expanded(
       child: Container(
           alignment: Alignment.center,
-          margin: const EdgeInsets.only(top: 4),
+          margin: EdgeInsets.only(top: parentHeight <= 640 ? 6 : 20),
           child: ListView(
-            scrollDirection: Axis.horizontal,
+            scrollDirection:
+                parentHeight <= 640 ? Axis.vertical : Axis.horizontal,
             children: [
+              SizedBox(width: parentHeight <= 640 ? 0 : 24),
               _groupMenuItem(context, members[0]),
-              const SizedBox(width: 20),
-              _groupMenuItem(context, members[1])
+              SizedBox(width: parentHeight <= 640 ? 0 : 20),
+              _groupMenuItem(context, members[1]),
+              SizedBox(width: parentHeight <= 640 ? 0 : 24, height: 20),
             ],
           )),
     );
   }
 
   Widget _groupMenuItem(BuildContext context, GroupItem member) {
+    double parentWidth = MediaQuery.of(context).size.width;
+    double parentHeight = MediaQuery.of(context).size.height;
+
     return Container(
-      margin: const EdgeInsets.only(top: 12),
-      width: MediaQuery.of(context).size.width * 0.8,
+      width: parentWidth * 0.8,
+      padding: EdgeInsets.symmetric(horizontal: parentHeight <= 640 ? 24 : 0),
+      margin: EdgeInsets.only(top: parentHeight <= 640 ? 14 : 0),
       child: Column(children: [
         Container(
-            height: 300,
-            // width: MediaQuery.of(context).size.width * 0.8,
+            height: 320,
             margin: const EdgeInsets.only(bottom: 14),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(14),

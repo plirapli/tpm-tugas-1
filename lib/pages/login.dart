@@ -62,19 +62,20 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 24,
-            horizontal: 24,
+        body: Expanded(
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: ListView(scrollDirection: Axis.vertical, children: [
+              const SizedBox(height: 20),
+              _heading(),
+              _usernameField(),
+              _passwordField(),
+              _loginButton(context),
+              const Divider(),
+              _registerButton(context),
+              const SizedBox(height: 20)
+            ]),
           ),
-          child: Column(children: [
-            _heading(),
-            _usernameField(),
-            _passwordField(),
-            _loginButton(context),
-            const Divider(),
-            _registerButton(context)
-          ]),
         ),
       ),
     );
@@ -90,7 +91,7 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             Text(
               "Login Page",
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             Text(
               "Please enter your credentials.",

@@ -73,20 +73,21 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 24,
-            horizontal: 24,
+        body: Expanded(
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: ListView(scrollDirection: Axis.vertical, children: [
+              const SizedBox(height: 20),
+              _heading(),
+              _nameField(),
+              _usernameField(),
+              _passwordField(),
+              _registerButton(context),
+              const Divider(),
+              _loginButton(context),
+              const SizedBox(height: 20)
+            ]),
           ),
-          child: Column(children: [
-            _heading(),
-            _nameField(),
-            _usernameField(),
-            _passwordField(),
-            _registerButton(context),
-            const Divider(),
-            _loginButton(context)
-          ]),
         ),
       ),
     );
@@ -102,7 +103,7 @@ class _RegisterPageState extends State<RegisterPage> {
           children: [
             Text(
               "Register Page",
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             Text(
               "Please enter your credentials.",

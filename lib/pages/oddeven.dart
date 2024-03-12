@@ -20,13 +20,17 @@ class _OddEvenPageState extends State<OddEvenPage> {
           title: const Text("Odd or Even"),
           backgroundColor: const Color.fromARGB(255, 121, 233, 255),
         ),
-        body: Container(
-          color: const Color.fromARGB(255, 219, 241, 255),
-          padding: const EdgeInsets.symmetric(
-            vertical: 24,
-            horizontal: 24,
+        body: Expanded(
+          child: Container(
+            color: const Color.fromARGB(255, 219, 241, 255),
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: ListView(scrollDirection: Axis.vertical, children: [
+              const SizedBox(height: 20),
+              _heading(),
+              _main(),
+              const SizedBox(height: 20)
+            ]),
           ),
-          child: Column(children: [_heading(), _main()]),
         ),
       ),
     );
@@ -41,7 +45,7 @@ class _OddEvenPageState extends State<OddEvenPage> {
             Text(
               "Odd or Even  🔢",
               style: TextStyle(
-                  fontSize: 28,
+                  fontSize: 24,
                   fontWeight: FontWeight.bold,
                   color: Color.fromARGB(255, 23, 34, 47)),
             ),
