@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "tpm_tugas_1_teori" "\0"
+            VALUE "FileDescription", "si_bagus" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "tpm_tugas_1_teori" "\0"
+            VALUE "InternalName", "si_bagus" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2024 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "tpm_tugas_1_teori.exe" "\0"
-            VALUE "ProductName", "tpm_tugas_1_teori" "\0"
+            VALUE "OriginalFilename", "si_bagus.exe" "\0"
+            VALUE "ProductName", "si_bagus" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
