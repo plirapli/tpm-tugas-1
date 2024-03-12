@@ -139,7 +139,7 @@ class _HomePageState extends State<HomePage> {
             children: filteredItems.isEmpty
                 ? [
                     Container(
-                        margin: EdgeInsets.only(top: 12),
+                        margin: const EdgeInsets.only(top: 12),
                         child: Text.rich(
                           TextSpan(
                             style: const TextStyle(fontSize: 16),

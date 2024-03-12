@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:si_bagus/util/groupitem.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -69,7 +67,6 @@ class _GroupMembersState extends State<GroupMembers> {
 
     return Expanded(
       child: Container(
-          alignment: Alignment.center,
           margin: EdgeInsets.only(top: parentHeight <= 640 ? 6 : 20),
           child: ListView(
             scrollDirection:
@@ -104,44 +101,43 @@ class _GroupMembersState extends State<GroupMembers> {
                 color: const Color.fromARGB(255, 180, 255, 229),
                 image: DecorationImage(
                     image: AssetImage(member.img!), fit: BoxFit.fitHeight))),
-        Container(
-          alignment: Alignment.centerLeft,
-          // decoration: BoxDecoration(color: Colors.amber),
-          child: Flex(
-            direction: Axis.horizontal,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    member.title!,
-                    style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    member.subtitle!,
-                    style: const TextStyle(
-                        fontSize: 16, color: Color.fromARGB(150, 0, 0, 0)),
-                  ),
-                ],
-              ),
-              IconButton.filled(
-                style: IconButton.styleFrom(
-                    minimumSize: const Size(48, 48),
-                    foregroundColor: const Color.fromARGB(255, 23, 47, 39),
-                    backgroundColor: const Color.fromARGB(255, 128, 255, 210),
-                    // minimumSize: Size(48, 48),
-                    // maximumSize: Size(48, 48),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8))),
-                onPressed: () {
-                  _launchURL(member.url);
-                },
-                icon: const Icon(Icons.code),
-              )
-            ],
-          ),
+        // Buat container tulisan bawah gambar
+        Flex(
+          direction: Axis.horizontal,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Flex(
+              direction: Axis.vertical,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  member.title!,
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  member.subtitle!,
+                  style: const TextStyle(
+                      fontSize: 16, color: Color.fromARGB(150, 0, 0, 0)),
+                ),
+              ],
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                  minimumSize: const Size(46, 46),
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.black,
+                  // minimumSize: Size(48, 48),
+                  // maximumSize: Size(48, 48),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8))),
+              onPressed: () {
+                _launchURL(member.url);
+              },
+              child:
+                  Image.asset('assets/images/github-mark-white.png', width: 24),
+            )
+          ],
         )
       ]),
     );
