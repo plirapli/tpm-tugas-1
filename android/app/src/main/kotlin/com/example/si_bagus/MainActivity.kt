@@ -1,4 +1,4 @@
-package com.example.tpm_tugas_1_teori
+package com.example.si_bagus
 
 import io.flutter.embedding.android.FlutterActivity
 
