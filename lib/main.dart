@@ -15,6 +15,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Mobile Programming Assignment',
       theme: ThemeData(
+        textSelectionTheme: const TextSelectionThemeData(
+            cursorColor: Colors.black,
+            selectionColor: Color.fromARGB(48, 0, 0, 0)),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
         useMaterial3: true,
       ),
