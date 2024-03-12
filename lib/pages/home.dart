@@ -56,19 +56,16 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Expanded(
-          child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 24,
-            ),
-            child: ListView(scrollDirection: Axis.vertical, children: [
-              const SizedBox(height: 20),
-              _heading(context),
-              _searchBar(context),
-              _mainmenu(context),
-              const SizedBox(height: 20)
-            ]),
-          ),
+        body: Container(
+          height: MediaQuery.of(context).size.height,
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: ListView(scrollDirection: Axis.vertical, children: [
+            const SizedBox(height: 20),
+            _heading(context),
+            _searchBar(context),
+            _mainmenu(context),
+            const SizedBox(height: 20)
+          ]),
         ),
       ),
     );
@@ -86,7 +83,7 @@ class _HomePageState extends State<HomePage> {
                 Text(
                   "Hello, ${widget.username}  👋🏻",
                   style: const TextStyle(
-                      fontSize: 24, fontWeight: FontWeight.bold),
+                      fontSize: 22, fontWeight: FontWeight.bold),
                 ),
                 const Text(
                   "Ini ceritanya subtext tapi gatau diisi apa",

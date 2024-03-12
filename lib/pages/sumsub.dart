@@ -22,20 +22,17 @@ class _SumSubPageState extends State<SumSubPage> {
           title: const Text("Sum and Sub"),
           backgroundColor: const Color.fromARGB(255, 255, 244, 94),
         ),
-        body: Expanded(
-          child: Container(
-            color: const Color.fromARGB(255, 251, 255, 219),
-            padding: const EdgeInsets.symmetric(
-              horizontal: 24,
-            ),
-            child: ListView(scrollDirection: Axis.vertical, children: [
-              const SizedBox(height: 20),
-              _heading(),
-              _calcLayout(context),
-              _main(context),
-              const SizedBox(height: 20)
-            ]),
-          ),
+        body: Container(
+          height: MediaQuery.of(context).size.height,
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          color: const Color.fromARGB(255, 251, 255, 219),
+          child: ListView(scrollDirection: Axis.vertical, children: [
+            const SizedBox(height: 20),
+            _heading(),
+            _calcLayout(context),
+            _main(context),
+            const SizedBox(height: 20)
+          ]),
         ),
       ),
     );

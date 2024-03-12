@@ -20,17 +20,16 @@ class _OddEvenPageState extends State<OddEvenPage> {
           title: const Text("Odd or Even"),
           backgroundColor: const Color.fromARGB(255, 121, 233, 255),
         ),
-        body: Expanded(
-          child: Container(
-            color: const Color.fromARGB(255, 219, 241, 255),
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: ListView(scrollDirection: Axis.vertical, children: [
-              const SizedBox(height: 20),
-              _heading(),
-              _main(),
-              const SizedBox(height: 20)
-            ]),
-          ),
+        body: Container(
+          height: MediaQuery.of(context).size.height,
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          color: const Color.fromARGB(255, 219, 241, 255),
+          child: ListView(scrollDirection: Axis.vertical, children: [
+            const SizedBox(height: 20),
+            _heading(),
+            _main(),
+            const SizedBox(height: 20)
+          ]),
         ),
       ),
     );

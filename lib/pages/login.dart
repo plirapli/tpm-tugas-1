@@ -62,20 +62,19 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Expanded(
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: ListView(scrollDirection: Axis.vertical, children: [
-              const SizedBox(height: 20),
-              _heading(),
-              _usernameField(),
-              _passwordField(),
-              _loginButton(context),
-              const Divider(),
-              _registerButton(context),
-              const SizedBox(height: 20)
-            ]),
-          ),
+        body: Container(
+          height: MediaQuery.of(context).size.height,
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: ListView(scrollDirection: Axis.vertical, children: [
+            const SizedBox(height: 20),
+            _heading(),
+            _usernameField(),
+            _passwordField(),
+            _loginButton(context),
+            const Divider(),
+            _registerButton(context),
+            const SizedBox(height: 20)
+          ]),
         ),
       ),
     );

@@ -73,21 +73,20 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Expanded(
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: ListView(scrollDirection: Axis.vertical, children: [
-              const SizedBox(height: 20),
-              _heading(),
-              _nameField(),
-              _usernameField(),
-              _passwordField(),
-              _registerButton(context),
-              const Divider(),
-              _loginButton(context),
-              const SizedBox(height: 20)
-            ]),
-          ),
+        body: Container(
+          height: MediaQuery.of(context).size.height,
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: ListView(scrollDirection: Axis.vertical, children: [
+            const SizedBox(height: 20),
+            _heading(),
+            _nameField(),
+            _usernameField(),
+            _passwordField(),
+            _registerButton(context),
+            const Divider(),
+            _loginButton(context),
+            const SizedBox(height: 20)
+          ]),
         ),
       ),
     );

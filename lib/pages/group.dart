@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:si_bagus/util/groupitem.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -20,6 +22,7 @@ class _GroupMembersState extends State<GroupMembers> {
         ),
         body: Container(
           color: const Color.fromARGB(255, 219, 255, 242),
+          height: MediaQuery.of(context).size.height,
           child: Column(children: [_heading(), _groupContainer(context)]),
         ),
       ),
@@ -96,12 +99,16 @@ class _GroupMembersState extends State<GroupMembers> {
             margin: const EdgeInsets.only(bottom: 14),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(14),
+                border: Border.all(
+                    color: const Color.fromARGB(24, 23, 47, 39), width: 2),
+                color: const Color.fromARGB(255, 180, 255, 229),
                 image: DecorationImage(
-                    image: AssetImage(member.img!), fit: BoxFit.cover))),
+                    image: AssetImage(member.img!), fit: BoxFit.fitHeight))),
         Container(
           alignment: Alignment.centerLeft,
           // decoration: BoxDecoration(color: Colors.amber),
-          child: Row(
+          child: Flex(
+            direction: Axis.horizontal,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
@@ -110,7 +117,7 @@ class _GroupMembersState extends State<GroupMembers> {
                   Text(
                     member.title!,
                     style: const TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.bold),
+                        fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   Text(
                     member.subtitle!,
