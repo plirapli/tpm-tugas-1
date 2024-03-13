@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:si_bagus/util/groupitem.dart';
+import 'package:si_bagus/model/groupitem.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class GroupMembers extends StatefulWidget {

@@ -3,7 +3,7 @@ import 'package:si_bagus/pages/login.dart';
 import 'package:si_bagus/pages/group.dart';
 import 'package:si_bagus/pages/oddeven.dart';
 import 'package:si_bagus/pages/sumsub.dart';
-import 'package:si_bagus/util/mainmenuitem.dart';
+import 'package:si_bagus/model/mainmenuitem.dart';
 
 class HomePage extends StatefulWidget {
   final String username;
