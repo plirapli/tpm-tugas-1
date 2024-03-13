@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:si_bagus/pages/home.dart';
@@ -15,6 +16,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final authStorage = GetStorage('auth');
   String username = "";
   String password = "";
   bool isError = false;
@@ -40,7 +42,13 @@ class _LoginPageState extends State<LoginPage> {
       if (response.statusCode == 200) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => HomePage(username: username)),
+          MaterialPageRoute(builder: (context) {
+            // Ganti val di local storage
+            authStorage.write('username', username);
+            authStorage.write('isLogged', true);
+
+            return HomePage(username: username);
+          }),
         );
       } else {
         setState(() {
