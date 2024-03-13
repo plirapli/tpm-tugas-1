@@ -103,18 +103,29 @@ class _SumSubPageState extends State<SumSubPage> {
       keyboardType: const TextInputType.numberWithOptions(decimal: true),
       controller: num,
       onChanged: (value) {
+        if (value.isNotEmpty && value.length > 1) {
+          if (value.characters.characterAt(0) == Characters("0")) {
+            // we need to remove the first char
+            num.text = value.substring(1);
+
+            // we need to move the cursor
+            num.selection = TextSelection.collapsed(offset: num.text.length);
+          } else if (value.characters.characterAt(0) == Characters("-") &&
+              value.characters.characterAt(1) == Characters("0")) {
+            num.text = value.substring(2, 2);
+          }
+        }
+
         setState(() {
           if (operand == "") {
-            firstNum = value;
+            firstNum = num.text;
           } else {
-            secondNum = value;
+            secondNum = num.text;
           }
         });
       },
       inputFormatters: <TextInputFormatter>[
         FilteringTextInputFormatter.allow(RegExp(r'^-?[0-9]*(\.[0-9]*)?')),
-        // Formatter yang berfungsi untuk menetapkan inputan dari userr
-        // User dapat menginputkan angka-angka, dan juga opsional satu titik (angka desimal)
       ],
       decoration: const InputDecoration(
         enabledBorder: UnderlineInputBorder(
