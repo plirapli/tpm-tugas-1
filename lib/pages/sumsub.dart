@@ -64,9 +64,9 @@ class _SumSubPageState extends State<SumSubPage> {
     return Container(
         width: MediaQuery.of(context).size.width,
         alignment: Alignment.centerRight,
-        margin: const EdgeInsets.only(top: 64),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+        margin: const EdgeInsets.only(top: 24),
+        child: Wrap(
+          // mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Text(
               firstNum,
