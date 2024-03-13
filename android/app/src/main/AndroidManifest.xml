@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.example.si_bagus">
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
-        android:label="si_bagus"
+        android:label="Sūgaku"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity
