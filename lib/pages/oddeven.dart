@@ -9,6 +9,7 @@ class OddEvenPage extends StatefulWidget {
 }
 
 class _OddEvenPageState extends State<OddEvenPage> {
+  TextEditingController num = TextEditingController();
   String result = "-";
   String number = "";
 
@@ -68,8 +69,24 @@ class _OddEvenPageState extends State<OddEvenPage> {
 
   Widget _inputField() {
     return TextField(
+      controller: num,
       onChanged: (value) {
-        number = value;
+        // if (value.isNotEmpty && value[0] != "0") {
+        // number = value;
+        // }
+        print((value.characters).runtimeType);
+        if (value.isNotEmpty && value.length > 1) {
+          if (value.characters.characterAt(0) == Characters("0")) {
+            // we need to remove the first char
+            num.text = value.substring(1);
+
+            // we need to move the cursor
+            num.selection = TextSelection.collapsed(offset: num.text.length);
+          } else if (value.characters.characterAt(0) == Characters("-") &&
+              value.characters.characterAt(1) == Characters("0")) {
+            num.text = value.substring(2, 2);
+          }
+        }
       },
       textAlign: TextAlign.center,
       style: const TextStyle(fontSize: 32),
@@ -104,14 +121,16 @@ class _OddEvenPageState extends State<OddEvenPage> {
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(4))),
         onPressed: () {
-          double? inputNumber = double.tryParse(number);
-          setState(() {
-            result = (inputNumber == null || inputNumber.isNaN)
-                ? "😵"
-                : (inputNumber % 2 == 0)
-                    ? "EVEN"
-                    : "ODD";
-          });
+          if (num.text.isNotEmpty && num.text != "-") {
+            double? inputNumber = double.parse(num.text[num.text.length - 1]);
+            setState(() {
+              result = (inputNumber % 2 == 0) ? "EVEN" : "ODD";
+            });
+          } else {
+            setState(() {
+              result = "😵";
+            });
+          }
         },
         child: const Text(
           'Check',
