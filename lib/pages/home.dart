@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:si_bagus/pages/login.dart';
 import 'package:si_bagus/pages/group.dart';
 import 'package:si_bagus/pages/oddeven.dart';
@@ -34,6 +35,7 @@ class _HomePageState extends State<HomePage> {
   ];
   List<MenuItem> filteredItems = [];
   String keyword = "";
+  final authStorage = GetStorage('auth');
 
   @override
   void initState() {
@@ -100,7 +102,11 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                  MaterialPageRoute(builder: (context) {
+                    authStorage.remove('username');
+                    authStorage.remove('isLogged');
+                    return const LoginPage();
+                  }),
                 );
               },
               icon: const Icon(Icons.logout),
