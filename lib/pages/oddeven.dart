@@ -87,9 +87,7 @@ class _OddEvenPageState extends State<OddEvenPage> {
       textAlign: TextAlign.center,
       style: const TextStyle(fontSize: 32),
       inputFormatters: <TextInputFormatter>[
-        FilteringTextInputFormatter.allow(RegExp(r'^-?[0-9]*(\.[0-9]*)?')),
-        // Formatter yang berfungsi untuk menetapkan inputan dari userr
-        // User dapat menginputkan angka-angka, dan juga opsional satu titik (angka desimal)
+        FilteringTextInputFormatter.allow(RegExp(r'^-?[0-9]*')),
       ],
       decoration: const InputDecoration(
         enabledBorder: UnderlineInputBorder(
