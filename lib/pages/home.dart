@@ -88,7 +88,7 @@ class _HomePageState extends State<HomePage> {
                       fontSize: 22, fontWeight: FontWeight.bold),
                 ),
                 const Text(
-                  "Ini ceritanya subtext tapi gatau diisi apa",
+                  "Welcome to Sūgaku app.",
                 ),
               ],
             ),
