@@ -71,10 +71,6 @@ class _OddEvenPageState extends State<OddEvenPage> {
     return TextField(
       controller: num,
       onChanged: (value) {
-        // if (value.isNotEmpty && value[0] != "0") {
-        // number = value;
-        // }
-        print((value.characters).runtimeType);
         if (value.isNotEmpty && value.length > 1) {
           if (value.characters.characterAt(0) == Characters("0")) {
             // we need to remove the first char
